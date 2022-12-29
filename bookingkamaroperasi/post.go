@@ -4,12 +4,13 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strconv"
 	"time"
 )
 
 // URL path: /bookingkamaroperasi/dd-mm-yyyy hour:minute+offset/minutes
 // example: /bookingkamaroperasi/10-10-1999 10:00+offset/60
-func Post(w http.ResponseWriter, r *http.Request) {
+func POST(w http.ResponseWriter, r *http.Request) {
 	regPath := regexp.MustCompile(`\/bookingkamaroperasi\/([\d-+ :]+)\/(\d{1,4})`)
 	match := regPath.FindStringSubmatch(r.URL.Path)
 	if match == nil {
@@ -21,14 +22,23 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	bookingDate, err := time.Parse("02-01-2006 15:04Z07:00", match[1])
 	if err != nil {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		log.Println(r.URL.Path + " " + r.RemoteAddr + " " + err.Error())
+		log.Println("ERROR" + r.URL.Path + " " + r.RemoteAddr + " " + err.Error())
 		return
 	}
-	duration := match[2]
+	duration, err := strconv.Atoi(match[2])
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		log.Println("ERROR" + r.URL.Path + " " + r.RemoteAddr + " " + err.Error())
+		return
+	}
 
 	switch r.Method {
 	case "POST":
-		w.Write([]byte(bookingDate.String() + " " + duration))
+		if TryAppend(bookingDate, time.Duration(duration)*time.Minute) {
+			w.Write([]byte("true"))
+		} else {
+			w.Write([]byte("false"))
+		}
 	default:
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return

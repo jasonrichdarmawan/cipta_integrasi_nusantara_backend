@@ -10,8 +10,7 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/bookingkamaroperasi/",
-		bookingkamaroperasi.Post)
+	mux.HandleFunc("/bookingkamaroperasi/", bookingkamaroperasi.POST)
 
 	err := http.ListenAndServe("localhost:8080", mux)
 	if err != nil {
