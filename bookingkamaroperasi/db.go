@@ -22,8 +22,8 @@ func (c *SafeDB) Append(key time.Time, bookingKamarOperasi BookingKamarOperasi) 
 }
 
 func (c *SafeDB) Value(key time.Time) []BookingKamarOperasi {
-	c.mu.Lock()
-	defer c.mu.Unlock()
+	c.mu.RLock()
+	defer c.mu.RUnlock()
 	return c.v[key]
 }
 
