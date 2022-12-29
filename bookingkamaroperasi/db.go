@@ -11,7 +11,7 @@ type BookingKamarOperasi struct {
 }
 
 type SafeDB struct {
-	mu sync.Mutex
+	mu sync.RWMutex
 	v  map[time.Time][]BookingKamarOperasi
 }
 
