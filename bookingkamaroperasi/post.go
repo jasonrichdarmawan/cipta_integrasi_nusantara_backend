@@ -1,11 +1,12 @@
 package bookingkamaroperasi
 
 import (
-	"log"
 	"net/http"
 	"regexp"
 	"strconv"
 	"time"
+
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/helper"
 )
 
 // URL path: /bookingkamaroperasi/dd-mm-yyyy hour:minute+offset/minutes
@@ -22,13 +23,13 @@ func POST(w http.ResponseWriter, r *http.Request) {
 	bookingDate, err := time.Parse("02-01-2006 15:04Z07:00", match[1])
 	if err != nil {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		log.Println("ERROR" + r.URL.Path + " " + r.RemoteAddr + " " + err.Error())
+		helper.Print(err, r)
 		return
 	}
 	duration, err := strconv.Atoi(match[2])
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		log.Println("ERROR" + r.URL.Path + " " + r.RemoteAddr + " " + err.Error())
+		helper.Print(err, r)
 		return
 	}
 
