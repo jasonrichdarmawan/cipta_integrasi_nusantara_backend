@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/helper"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/helper"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 )

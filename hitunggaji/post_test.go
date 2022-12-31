@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/hitunggaji"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/hitunggaji"
 	"github.com/steinfletcher/apitest"
 )
 
