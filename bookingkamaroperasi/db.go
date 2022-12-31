@@ -4,6 +4,8 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/helper"
 )
 
 type BookingKamarOperasi struct {
@@ -29,10 +31,6 @@ func (c *SafeDB) Value(key time.Time) []BookingKamarOperasi {
 }
 
 var c = SafeDB{v: make(map[time.Time][]BookingKamarOperasi)}
-
-func truncateDate(t time.Time) time.Time {
-	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
-}
 
 func isThereNoScheduleIn2Hours(key time.Time, bookingDate time.Time, duration time.Duration) bool {
 	document := c.Value(key)
@@ -75,17 +73,17 @@ func isThereNoScheduleIn2Hours(key time.Time, bookingDate time.Time, duration ti
 }
 
 func TryAppend(bookingDate time.Time, duration time.Duration) bool {
-	yesterday := truncateDate(bookingDate.AddDate(0, 0, -1))
+	yesterday := helper.TruncateDate(bookingDate.AddDate(0, 0, -1))
 	if !isThereNoScheduleIn2Hours(yesterday, bookingDate, duration) {
 		return false
 	}
 
-	today := truncateDate(bookingDate)
+	today := helper.TruncateDate(bookingDate)
 	if !isThereNoScheduleIn2Hours(today, bookingDate, duration) {
 		return false
 	}
 
-	tomorrow := truncateDate(bookingDate.AddDate(0, 0, 1))
+	tomorrow := helper.TruncateDate(bookingDate.AddDate(0, 0, 1))
 	if !isThereNoScheduleIn2Hours(tomorrow, bookingDate, duration) {
 		return false
 	}
