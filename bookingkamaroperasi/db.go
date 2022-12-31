@@ -73,17 +73,17 @@ func isThereNoScheduleIn2Hours(key time.Time, bookingDate time.Time, duration ti
 }
 
 func TryAppend(bookingDate time.Time, duration time.Duration) bool {
-	yesterday := helper.TruncateDate(bookingDate.AddDate(0, 0, -1))
+	yesterday := helper.RemoveFromHour(bookingDate.AddDate(0, 0, -1))
 	if !isThereNoScheduleIn2Hours(yesterday, bookingDate, duration) {
 		return false
 	}
 
-	today := helper.TruncateDate(bookingDate)
+	today := helper.RemoveFromHour(bookingDate)
 	if !isThereNoScheduleIn2Hours(today, bookingDate, duration) {
 		return false
 	}
 
-	tomorrow := helper.TruncateDate(bookingDate.AddDate(0, 0, 1))
+	tomorrow := helper.RemoveFromHour(bookingDate.AddDate(0, 0, 1))
 	if !isThereNoScheduleIn2Hours(tomorrow, bookingDate, duration) {
 		return false
 	}
