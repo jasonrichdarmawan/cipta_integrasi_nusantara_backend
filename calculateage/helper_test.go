@@ -25,6 +25,101 @@ func TestLeapYear(t *testing.T) {
 }
 
 func TestCalculateDaysBetweenDates(t *testing.T) {
+	// Scenario 1: 28-10-1983 to 03-10-2022
+	a, err := time.Parse("02-01-2006", "28-10-1983")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	b, err := time.Parse("02-01-2006", "03-10-2022")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	yearsDiff, monthsDiff, daysDiff, err := calculateage.CalculateYearsMonthsDaysBetweenDates(a, b)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	// Duly noted: the requirements daysDiff is 6.
+	// the correct value is 5
+	if yearsDiff != 38 || monthsDiff != 11 || daysDiff != 5 {
+		t.Errorf("yearsDiff = %d, monthsDiff = %d, daysDiff = %f; want 38, 11, 5", yearsDiff, monthsDiff, daysDiff)
+	}
+
+	// Scenario 2: 28-10-1983 to 04-10-2022
+	c, err := time.Parse("02-01-2006", "28-10-1983")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	d, err := time.Parse("02-01-2006", "04-10-2022")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	yearsDiff, monthsDiff, daysDiff, err = calculateage.CalculateYearsMonthsDaysBetweenDates(c, d)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	// Duly noted: the requirements daysDiff is 7.
+	// the correct value is 6
+	if yearsDiff != 38 || monthsDiff != 11 || daysDiff != 6 {
+		t.Errorf("yearsDiff = %d, monthsDiff = %d, daysDiff = %f; want 38, 11, 6", yearsDiff, monthsDiff, daysDiff)
+	}
+
+	// Scenario 3: 13-11-1982 to 03-10-2022
+	e, err := time.Parse("02-01-2006", "13-11-1982")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	f, err := time.Parse("02-01-2006", "03-10-2022")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	yearsDiff, monthsDiff, daysDiff, err = calculateage.CalculateYearsMonthsDaysBetweenDates(e, f)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	// Duly noted: the requirements daysDiff is 7.
+	// the correct value is 6
+	if yearsDiff != 39 || monthsDiff != 10 || daysDiff != 20 {
+		t.Errorf("yearsDiff = %d, monthsDiff = %d, daysDiff = %f; want 39, 10, 20", yearsDiff, monthsDiff, daysDiff)
+	}
+
+	// Scenario 4: 13-11-1982 to 04-10-22
+	g, err := time.Parse("02-01-2006", "13-11-1982")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	h, err := time.Parse("02-01-2006", "04-10-2022")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	yearsDiff, monthsDiff, daysDiff, err = calculateage.CalculateYearsMonthsDaysBetweenDates(g, h)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	// Duly noted: the requirements daysDiff is 7.
+	// the correct value is 6
+	if yearsDiff != 39 || monthsDiff != 10 || daysDiff != 21 {
+		t.Errorf("yearsDiff = %d, monthsDiff = %d, daysDiff = %f; want 39, 10, 21", yearsDiff, monthsDiff, daysDiff)
+	}
+}
+
+// out of scope requirements
+func TestCalculateDaysBetweenDates2(t *testing.T) {
 	// Scenario 1: leap year && a.YearDay() <= b.YearDay()
 	a, err := time.Parse("02-01-2006", "01-01-1924")
 	if err != nil {
@@ -150,9 +245,7 @@ func TestCalculateDaysBetweenDates(t *testing.T) {
 	if yearsDiff != 4 || monthsDiff != 11 || daysDiff != 30 {
 		t.Errorf("yearsDiff = %d, monthsDiff = %d, daysDiff = %f; want 4, 11, 30", yearsDiff, monthsDiff, daysDiff)
 	}
-}
 
-func TestCalculateDaysBetweenDates2(t *testing.T) {
 	// Scenario 7: start from month 10 instead of 1
 	m, err := time.Parse("02-01-2006", "28-10-1983")
 	if err != nil {
@@ -165,7 +258,7 @@ func TestCalculateDaysBetweenDates2(t *testing.T) {
 		return
 	}
 
-	yearsDiff, monthsDiff, daysDiff, err := calculateage.CalculateYearsMonthsDaysBetweenDates(m, n)
+	yearsDiff, monthsDiff, daysDiff, err = calculateage.CalculateYearsMonthsDaysBetweenDates(m, n)
 	if err != nil {
 		t.Error(err)
 		return

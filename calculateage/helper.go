@@ -23,7 +23,10 @@ func CalculateYearsMonthsDaysBetweenDates(a, b time.Time) (yearsDiff int, months
 	year := a.Year()
 
 	// reference: https://www.calendarr.com/united-states/how-many-days-in-a-month/
-	daysInMonths := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+	daysInMonths := []int{
+		31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+		31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+	}
 
 	// reference: https://www.calendar.best/leap-years.html
 	if year%4 == 0 && year%100 != 0 || year%400 == 0 {
@@ -31,6 +34,8 @@ func CalculateYearsMonthsDaysBetweenDates(a, b time.Time) (yearsDiff int, months
 	}
 
 	monthsDiff = 0
+	// i.e. a.Month() is 10
+	// then subtract daysDiff with days of Month 10, 11, 12, 1, 2, and so on.
 	for _, daysInMonth := range daysInMonths[a.Month()-1:] {
 		daysDiff -= float64(daysInMonth)
 		if daysDiff < 0 {
