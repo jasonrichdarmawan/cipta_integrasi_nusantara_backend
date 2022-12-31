@@ -1,7 +1,6 @@
 package validasialergiobat
 
 import (
-	"log"
 	"strings"
 )
 
@@ -99,8 +98,6 @@ func InitializeDB() {
 	proris2Compositions := []string{"Ibuprofen"}
 	InsertToMedicineDB(proris2Name, proris2Compositions)
 	InsertIntoAllergyDB("ibuprofen", proris2Name)
-
-	log.Println(allergyDB)
 
 	aspirinName := "Cardio Aspirin 100 mg 10 Tablet"
 	aspirinCompositions := []string{"Tiap tablet mengandung: Acetylsalicylic acid 100 mg"}
