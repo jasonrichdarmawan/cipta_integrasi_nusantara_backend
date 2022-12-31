@@ -1,12 +1,10 @@
 package bookingkamaroperasi_test
 
 import (
-	"net/http"
 	"testing"
 	"time"
 
 	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/bookingkamaroperasi"
-	"github.com/steinfletcher/apitest"
 )
 
 func TestTryAppend(t *testing.T) {
@@ -49,38 +47,4 @@ func TestTryAppend(t *testing.T) {
 	if got := bookingkamaroperasi.TryAppend(yesterday23_today01, 2*time.Hour); got {
 		t.Errorf("%v - 01-01-2022 01:00 = %t; want false", yesterday23_today01.Format("02-01-2006 15:04"), got)
 	}
-}
-
-func TestPOST(t *testing.T) {
-	apitest.New().
-		HandlerFunc(bookingkamaroperasi.POST).
-		Post("/bookingkamaroperasi/01-01-2022 10:00+07:00/120").
-		Expect(t).
-		Body("true").
-		Status(http.StatusOK).
-		End()
-
-	apitest.New().
-		HandlerFunc(bookingkamaroperasi.POST).
-		Post("/bookingkamaroperasi/01-01-2022 15:00+07:00/120").
-		Expect(t).
-		Body("true").
-		Status(http.StatusOK).
-		End()
-
-	apitest.New().
-		HandlerFunc(bookingkamaroperasi.POST).
-		Post("/bookingkamaroperasi/01-01-2022 18:00+07:00/120").
-		Expect(t).
-		Body("false").
-		Status(http.StatusOK).
-		End()
-
-	apitest.New().
-		HandlerFunc(bookingkamaroperasi.POST).
-		Post("/bookingkamaroperasi/01-01-2022 07:00+07:00/120").
-		Expect(t).
-		Body("false").
-		Status(http.StatusOK).
-		End()
 }
