@@ -40,7 +40,11 @@ func calculateYearlyNetIncomePerCountryPerYear(komponenGaji []salaryStructure) m
 
 var p = message.NewPrinter(language.Indonesian)
 
-func POST(w http.ResponseWriter, r *http.Request) {
+func GET(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
 
 	decoder := json.NewDecoder(r.Body)
 	var body hitungGajiRequestBody

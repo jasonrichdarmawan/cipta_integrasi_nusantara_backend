@@ -8,12 +8,12 @@ import (
 	"github.com/steinfletcher/apitest"
 )
 
-func TestPOST(t *testing.T) {
+func TestGET(t *testing.T) {
 	// Scenario 1
 	// An employee in Indonesia, married and have children
 	// with monthly net income 30 millions Rupiah
 	apitest.New().
-		HandlerFunc(hitunggaji.POST).
+		HandlerFunc(hitunggaji.GET).
 		Post("/hitunggaji").
 		JSON(`{
 			"employee": {
@@ -44,7 +44,7 @@ func TestPOST(t *testing.T) {
 	// with monthly net income 30 million VND
 	// monthly insurance cost 1 million VND
 	apitest.New().
-		HandlerFunc(hitunggaji.POST).
+		HandlerFunc(hitunggaji.GET).
 		Post("/hitunggaji").
 		JSON(`{
 			"employee": {
