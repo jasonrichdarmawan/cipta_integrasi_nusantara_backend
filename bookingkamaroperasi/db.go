@@ -30,7 +30,11 @@ func (c *SafeDB) Value(key time.Time) []BookingKamarOperasi {
 	return c.v[key]
 }
 
-var c = SafeDB{v: make(map[time.Time][]BookingKamarOperasi)}
+var c SafeDB
+
+func InitializeDB() {
+	c = SafeDB{v: make(map[time.Time][]BookingKamarOperasi)}
+}
 
 func isThereNoScheduleIn2Hours(key time.Time, bookingDate time.Time, duration time.Duration) bool {
 	document := c.Value(key)

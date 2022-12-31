@@ -8,6 +8,7 @@ import (
 )
 
 func TestTryAppend(t *testing.T) {
+	bookingkamaroperasi.InitializeDB()
 	now, err := time.Parse("02-01-2006 15:04Z07:00", "01-01-2022 10:00+07:00")
 	if err != nil {
 		t.Error(err)

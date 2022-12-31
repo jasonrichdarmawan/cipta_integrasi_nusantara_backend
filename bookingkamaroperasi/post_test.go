@@ -9,6 +9,7 @@ import (
 )
 
 func TestPOST(t *testing.T) {
+	bookingkamaroperasi.InitializeDB()
 	apitest.New().
 		HandlerFunc(bookingkamaroperasi.POST).
 		Post("/bookingkamaroperasi/01-01-2022 10:00+07:00/120").
