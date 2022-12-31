@@ -6,13 +6,17 @@ import (
 
 	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/bookingkamaroperasi"
 	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/hitunggaji"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/validasialergiobat"
 )
 
 func main() {
+	validasialergiobat.InitializeDB()
+
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/bookingkamaroperasi/", bookingkamaroperasi.POST)
 	mux.HandleFunc("/hitunggaji", hitunggaji.GET)
+	mux.HandleFunc("/validasialergiobat", validasialergiobat.GET)
 
 	err := http.ListenAndServe("localhost:8080", mux)
 	if err != nil {
