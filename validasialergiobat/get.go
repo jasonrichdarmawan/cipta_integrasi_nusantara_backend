@@ -60,6 +60,7 @@ func GET(w http.ResponseWriter, r *http.Request) {
 	responseBody, err := json.Marshal(p)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 	w.Write(responseBody)
 }
