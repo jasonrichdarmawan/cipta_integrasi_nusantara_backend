@@ -14,7 +14,7 @@ func TestGET(t *testing.T) {
 	// with monthly net income 30 millions Rupiah
 	apitest.New().
 		HandlerFunc(hitunggaji.GET).
-		Post("/hitunggaji").
+		Get("/hitunggaji").
 		JSON(`{
 			"employee": {
 				"marriageStatus": 3
@@ -45,7 +45,7 @@ func TestGET(t *testing.T) {
 	// monthly insurance cost 1 million VND
 	apitest.New().
 		HandlerFunc(hitunggaji.GET).
-		Post("/hitunggaji").
+		Get("/hitunggaji").
 		JSON(`{
 			"employee": {
 				"marriageStatus": 1
