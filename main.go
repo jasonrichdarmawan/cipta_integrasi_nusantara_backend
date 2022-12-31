@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/bookingkamaroperasi"
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/hitunggaji"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/bookingkamaroperasi"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/hitunggaji"
 )
 
 func main() {

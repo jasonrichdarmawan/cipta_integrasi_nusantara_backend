@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/bookingkamaroperasi"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/bookingkamaroperasi"
 	"github.com/steinfletcher/apitest"
 )
 

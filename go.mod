@@ -1,4 +1,4 @@
-module github.com/jasonrichdarmawan/cipta_integrasi_nusantara
+module github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend
 
 go 1.19
 

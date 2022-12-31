@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/bookingkamaroperasi"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/bookingkamaroperasi"
 )
 
 func TestTryAppend(t *testing.T) {

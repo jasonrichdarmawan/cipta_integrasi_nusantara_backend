@@ -3,7 +3,7 @@ package hitunggaji_test
 import (
 	"testing"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/hitunggaji"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/hitunggaji"
 )
 
 func TestCalculateTaxableIncome(t *testing.T) {

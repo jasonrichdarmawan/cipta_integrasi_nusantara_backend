@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/helper"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/helper"
 )
 
 type BookingKamarOperasi struct {

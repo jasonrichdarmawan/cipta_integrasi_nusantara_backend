@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara/helper"
+	"github.com/jasonrichdarmawan/cipta_integrasi_nusantara_backend/helper"
 )
 
 // URL path: /bookingkamaroperasi/dd-mm-yyyy hour:minute+offset/minutes
