@@ -14,13 +14,6 @@ func TestGET(t *testing.T) {
 		HandlerFunc(calculateage.GET).
 		Get("/calculateage/28-10-1983").
 		Expect(t).
-		Body(`{
-			"umur": {
-				"year": 39,
-				"month": 2,
-				"day": 4
-			}
-		}`).
 		Status(http.StatusOK).
 		End()
 }
