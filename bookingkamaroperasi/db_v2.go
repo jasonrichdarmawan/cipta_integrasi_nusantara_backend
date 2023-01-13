@@ -2,7 +2,6 @@ package bookingkamaroperasi
 
 import (
 	"errors"
-	"log"
 	"strconv"
 	"sync"
 	"time"
@@ -19,7 +18,6 @@ type BookingKamarOperasi_v2 struct {
 // 2 = right
 func (n *BookingKamarOperasi_v2) leftOrRight(data BookingKamarOperasi_v2) (int, error) {
 	if data.endDate.Before(n.startDate) {
-		log.Println(data.endDate, n.startDate)
 		// scenario 1: endDate n.startDate
 		return 1, nil
 	} else {
@@ -52,12 +50,9 @@ func (t *BinaryTree) insert(startDate, endDate time.Time) (bool, error) {
 		t.root = &BinaryNode{
 			left: nil, right: nil,
 			data: data}
-		log.Println("new", "\t", t.root.data.startDate, t.root.data.endDate)
 		return true, nil
 	} else {
-		ok, err := t.root.insert(data)
-		log.Println("BinaryTree.insert ok", ok, err)
-		return ok, err
+		return t.root.insert(data)
 	}
 }
 
@@ -77,13 +72,7 @@ func (n *BookingKamarOperasi_v2) isLessThanTwoHoursApart(data BookingKamarOperas
 		return 0, errors.New("this method is not to be used directly")
 	}
 
-	log.Println("node", "\t", node)
-	log.Println("diff", "\t", diff, diff < 2*time.Hour)
-	log.Println("existing", "\t", n.startDate, n.endDate)
-	log.Println("new", "\t", data.startDate, data.endDate)
-
 	if diff < 2*time.Hour {
-		log.Println("BookingKamarOperasi_v2.isLessThanTwoHoursApart return 2, nil")
 		return 2, nil
 	} else {
 		return 1, nil
@@ -101,49 +90,35 @@ func (n *BinaryNode) insert(data BookingKamarOperasi_v2) (bool, error) {
 	node, err := n.data.leftOrRight(data)
 	if node == 0 {
 		return false, err
-	} else if node == 1 {
-		if isLess, err := n.data.isLessThanTwoHoursApart(data, 1); isLess == 0 {
-			return false, err
-		} else if isLess == 2 {
-			return false, nil
-		} else if isLess == 1 {
-			// continue
-		} else {
-			return false, errors.New("isLess " + strconv.Itoa(isLess) + " is not implemented")
-		}
+	}
 
+	if isLess, err := n.data.isLessThanTwoHoursApart(data, node); isLess == 0 {
+		return false, err
+	} else if isLess == 2 {
+		return false, nil
+	} else if isLess == 1 {
+		// continue
+	} else {
+		return false, errors.New("isLess " + strconv.Itoa(isLess) + " is not implemented")
+	}
+
+	if node == 1 {
 		if n.left == nil {
 			n.left = &BinaryNode{left: nil, right: nil, data: data}
 		} else {
 			return n.left.insert(data)
 		}
-
-		return true, nil
 	} else if node == 2 {
-		if isLess, err := n.data.isLessThanTwoHoursApart(data, 2); isLess == 0 {
-			return false, err
-		} else if isLess == 2 {
-			log.Println("BinaryNode.isLess " + strconv.Itoa(isLess) + " " + strconv.FormatBool(false))
-			return false, nil
-		} else if isLess == 1 {
-			// continue
-		} else {
-			return false, errors.New("isLess " + strconv.Itoa(isLess) + " is not implemented")
-		}
-
 		if n.right == nil {
-			log.Println("CREATION")
 			n.right = &BinaryNode{left: nil, right: nil, data: data}
 		} else {
-			log.Println("RECURSIVE")
 			return n.right.insert(data)
 		}
-
-		log.Println("triggered")
-		return true, nil
 	} else {
-		return false, errors.New("unknown error")
+		return false, err
 	}
+
+	return true, nil
 }
 
 type SafeDB_v2 struct {
@@ -154,8 +129,6 @@ type SafeDB_v2 struct {
 func (c *SafeDB_v2) TryInsert(startDate time.Time, duration time.Duration) (bool, error) {
 	c.mu.Lock()
 	ok, err := c.v.insert(startDate, startDate.Add(duration))
-	log.Println("SafeDB_v2.Insert " + strconv.FormatBool(ok))
-	log.Println()
 	c.mu.Unlock()
 
 	return ok, err
