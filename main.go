@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	bookingkamaroperasi.InitializeDB()
+	bookingkamaroperasi.InitializeDB_v2()
 	validasialergiobat.InitializeDB()
 
 	mux := http.NewServeMux()

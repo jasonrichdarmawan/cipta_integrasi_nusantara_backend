@@ -40,7 +40,7 @@ func POST(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "POST":
-		if TryAppend(bookingDate, time.Duration(duration)*time.Minute) {
+		if ok, _ := C_v2.TryInsert(bookingDate, time.Duration(duration)*time.Minute); ok {
 			w.Write([]byte("true"))
 		} else {
 			w.Write([]byte("false"))
